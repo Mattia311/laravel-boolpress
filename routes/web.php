@@ -17,6 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Rotte pubbliche
+Route::get('/', 'PageController@index');
+
+// Rotte Autenticazione
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Rotte area Admin
+Route::middleware('auth')->namespace('Admin')->name('admin.')->prefix('admin')->group(function() {
+    Route::get('/', 'HomeController@index')->name('home');
+});
