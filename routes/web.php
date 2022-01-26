@@ -14,16 +14,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('guest.welcome');
+})->name('home');
 
-// Rotte pubbliche
-Route::get('/', 'PageController@index');
+Route::resource('products', ProductController::class)->only(['index', 'show']);
 
-// Rotte Autenticazione
 Auth::routes();
 
-// Rotte area Admin
-Route::middleware('auth')->namespace('Admin')->name('admin.')->prefix('admin')->group(function() {
-    Route::get('/', 'HomeController@index')->name('home');
+Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+
+    Route::get('/', 'HomeController@index')->name('dashboard');
+    Route::resource('products', ProductController::class);
+
 });
