@@ -36,7 +36,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="">Homepage</a>
+                            <a class="nav-link" href="{{ route('home') }}">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="">About</a>
@@ -45,7 +45,7 @@
                             <a class="nav-link" href="">Contacts</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Shop</a>
+                            <a class="nav-link" href="{{route('products.index')}}">Shop</a>
                         </li>
                     </ul>
 
