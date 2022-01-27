@@ -21,12 +21,13 @@
         <tr>
             <td scope="row">{{$product->id}}</td>
             <td><img width="100" src="{{$product->image}}" alt=""></td>
-            <td>{{$product->name}}</td>
-            <td>{{$product->price}}</td>
+            <td>{{ $product->name }}</td>
+            <td>{{ $product->image }}</td>
+            <td>{{ $product->price }}</td>
+            <td>{{ $product->description }}</td>
             <td>
-                <a href="{{route('products.show', $product->id )}}"><i class="fas fa-eye fa-lg fa-fw"></i></a>
-                <i class="fas fa-pencil-alt fa-lg fa-fw"></i>
-                <i class="fas fa-trash fa-lg fa-fw"></i>
+                <a class="btn btn-secondary m-1" href="{{ route('admin.products.show', ['product' => $product->id]) }}">VIEW</a>
+                <a class="" href="{{ route('admin.products.edit', $product->id) }}"><button type="button" class="btn btn-primary m-1">EDIT</button></a>
             </td>
         </tr>
         @endforeach

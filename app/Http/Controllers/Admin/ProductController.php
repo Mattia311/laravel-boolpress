@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
@@ -66,7 +67,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('admin.products.edit', compact('product'));
     }
 
     /**
@@ -78,7 +79,19 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $validate = $request->validate([
+            'name' => [
+                'required',
+                Rule::unique('products')->ignore($product->id)
+            ],
+            'image' => 'nullable|url',
+            'price' => 'nullable|numeric',
+            'description' => 'nullable',
+        ]);
+
+        $product->update($validate);
+
+        return redirect()->route('admin.products.index')->with('message', "Hai modificato il prodotto $product->name correttamente.");
     }
 
     /**
@@ -89,6 +102,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return redirect()->route('admin.products.index')->with('message', "Hai cancellato il prodotto $product->name correttamente.");
     }
 }
