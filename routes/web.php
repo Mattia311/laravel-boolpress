@@ -14,17 +14,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
     return view('guest.welcome');
 })->name('home');
 
 Route::resource('products', ProductController::class)->only(['index', 'show']);
-Route::resource('posts', PostController::class)->only(['index', 'show']);
+Route::resource('posts', PostController::class)->only(['index', 'show'])->parameter('post', 'post:slug');
+
 
 Auth::routes();
+
+
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     Route::get('/', 'HomeController@index')->name('dashboard');
     Route::resource('products', ProductController::class);
+    Route::resource('posts', PostController::class);
+
 
 });
+
+
+

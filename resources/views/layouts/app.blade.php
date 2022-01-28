@@ -34,12 +34,21 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-                        <li>
-                            <a href="{{ route('products.index') }}" class="nav-link">Products</a>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('home') }}">Home</a>
                         </li>
-                        <li>
-                            <a href="{{ route('posts.index') }}" class="nav-link">Posts</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('posts.index')}}">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contacts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('products.index')}}">Shop</a>
                         </li>
                     </ul>
 
@@ -56,16 +65,14 @@
                         </li>
                         @endif
                         @else
-
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
-                                <a class="dropdown-item" href="{{ route('home') }}">
-                                    Admin
+                                <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
+                                    Dashboard
                                 </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
