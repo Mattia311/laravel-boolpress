@@ -1,23 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
-
-
-    /**
-     * Show all posts associated with a category
-     */
-
-    public function posts(Category $category)
-    {
-        $posts = $category->posts()->orderByDesc('id')->paginate(10);
-        return view('guest.categories.posts', compact('posts', 'category'));
-    }
     /**
      * Display a listing of the resource.
      *
@@ -25,18 +16,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view('admin.categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -46,29 +29,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        // validate data
+        $validated_date = $request->validate([
+            'name' => 'required|unique:categories'
+        ]);
+        $validated_date['slug'] = Str::slug($request->name);
+        // save
+        Category::create($validated_date);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        //
+        // redirect back
+        return redirect()->back()->with('message', '🥳 Category created');
     }
 
     /**
@@ -80,7 +50,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        ddd($request->all());
     }
 
     /**
@@ -91,6 +61,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->back()->with('message', 'Category deleted');
     }
 }

@@ -2,21 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class TagController extends Controller
 {
 
-
-    /**
-     * Show all posts associated with a category
-     */
-
-    public function posts(Category $category)
+    public function posts(Tag $tag)
     {
-        $posts = $category->posts()->orderByDesc('id')->paginate(10);
-        return view('guest.categories.posts', compact('posts', 'category'));
+        $posts = $tag->posts()->orderByDesc('id')->paginate(10);
+        return view('guest.tags.posts', compact('posts', 'tag'));
     }
     /**
      * Display a listing of the resource.
@@ -52,10 +47,10 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Tag $tag)
     {
         //
     }
@@ -63,10 +58,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Tag $tag)
     {
         //
     }
@@ -75,10 +70,10 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Tag $tag)
     {
         //
     }
@@ -86,10 +81,10 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Tag $tag)
     {
         //
     }
