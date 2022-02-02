@@ -1,7 +1,8 @@
 <?php
-
+use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::post('contacts','PageController@sendContactForm')->name('contacts.send');
 Route::resource('products', ProductController::class)->only(['index', 'show']);
 Route::resource('posts', PostController::class)->only(['index', 'show'])->parameter('post', 'post:slug');
 
+
 Route::get('categories/{category:slug}/posts', 'CategoryController@posts')->name('categories.posts');
 Route::get('tags/{tag:slug}/posts', 'TagController@posts')->name('tags.posts');
 
@@ -41,6 +43,13 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('auth')->
     Route::resource('tags', TagController::class);
 
 
+});
+
+Route::get('posts/{post}', function (Post $post) {
+    return new PostResource(Post::find($post));
+});
+Route::get('blog', function () {
+    return view('blog');
 });
 
 
